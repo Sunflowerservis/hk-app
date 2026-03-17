@@ -11,6 +11,11 @@ if 'GOOGLE_CREDENTIALS' not in os.environ:
 service_account_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
 print("✅ GOOGLE_CREDENTIALS terbaca!")
 
+# Ganti literal '\n' menjadi newline asli
+if 'private_key' in service_account_info:
+    service_account_info['private_key'] = service_account_info['private_key'].replace('\\n', '\n')
+
+
 app = Flask(__name__)
 
 # === GOOGLE SHEETS SETUP ===
