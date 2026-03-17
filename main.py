@@ -5,6 +5,12 @@ import json
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
+if 'GOOGLE_CREDENTIALS' not in os.environ:
+    raise Exception("❌ Environment variable GOOGLE_CREDENTIALS tidak ditemukan!")
+
+service_account_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
+print("✅ GOOGLE_CREDENTIALS terbaca!")
+
 app = Flask(__name__)
 
 # === GOOGLE SHEETS SETUP ===
