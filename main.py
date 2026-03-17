@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 import gspread
+import os
+import json
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 
@@ -10,7 +12,8 @@ scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
-creds = Credentials.from_service_account_file("credentials.json", scopes=scope)
+service_account_info = json.loads(os.environ['GOOGLE_CREDENTIALS'])
+creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
 client = gspread.authorize(creds)
 
 sheet_data = client.open("DATA_HK").worksheet("DATA")
